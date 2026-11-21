@@ -1,0 +1,290 @@
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tacticalpool | Mantenimiento y Limpieza de Piscinas en Casablanca y V Región</title>
+    <meta name="description" content="Mantenimiento preventivo, recuperación de aguas verdes y reparación de equipos de piscinas en Casablanca, Hacienda Lo Orozco y la Región de Valparaíso.">
+    
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        tactical: {
+                            navy: '#0A192F',
+                            slate: '#112240',
+                            pool: '#0284C7',
+                            cyan: '#38BDF8',
+                            light: '#F0F9FF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos personalizados para texturas acuáticas, rejilla táctica y micro-interacciones -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Patrón de rejilla táctica sutil */
+        .tactical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(56, 189, 248, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.07) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        /* Efecto cristal esmerilado para Navbar */
+        .glass-nav {
+            background: rgba(10, 25, 47, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+        }
+        /* Gradiente de agua cristalina */
+        .aqua-gradient {
+            background: linear-gradient(135deg, #0A192F 0%, #0C2D48 50%, #0284C7 100%);
+        }
+        /* Tarjeta destacada con brillo sutil */
+        .plan-featured {
+            box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.28);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-tactical-cyan selection:text-tactical-navy">
+
+    <!-- =====================================================================
+         1. NAVEGACIÓN FIJA (NAVBAR)
+    ====================================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo Táctico / Profesional -->
+                <a href="#inicio" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="relative w-11 h-11 rounded-xl bg-gradient-to-br from-tactical-pool to-tactical-cyan p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-tactical-navy rounded-[10px] flex items-center justify-center">
+                            <!-- Icono SVG: Mira táctica + Gota de agua -->
+                            <svg class="w-6 h-6 text-tactical-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" stroke-dasharray="4 2"></circle>
+                                <path d="M12 7c-2.5 3.2-4 5.1-4 7a4 4 0 0 0 8 0c0-1.9-1.5-3.8-4-7z" fill="rgba(56, 189, 248, 0.25)"></path>
+                                <line x1="12" y1="1" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="23"></line>
+                                <line x1="1" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="23" y2="12"></line>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-xl tracking-wider text-white block leading-none">
+                            TACTICAL<span class="text-tactical-cyan">POOL</span>
+                        </span>
+                        <span class="text-[10px] font-semibold tracking-[0.22em] text-sky-300/80 uppercase block mt-1">
+                            Casablanca • V Región
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Enlaces de navegación (Escritorio) -->
+                <nav class="hidden lg:flex items-center gap-7">
+                    <a href="#inicio" class="text-sm font-medium text-slate-200 hover:text-tactical-cyan transition-colors">Inicio</a>
+                    <a href="#servicios" class="text-sm font-medium text-slate-200 hover:text-tactical-cyan transition-colors">Servicios y Mantenimiento</a>
+                    <a href="#planes" class="text-sm font-medium text-slate-200 hover:text-tactical-cyan transition-colors">Planes Mensuales</a>
+                    <a href="#trabajos" class="text-sm font-medium text-slate-200 hover:text-tactical-cyan transition-colors">Trabajos Realizados</a>
+                    <a href="#contacto" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-tactical-pool hover:bg-tactical-cyan hover:text-tactical-navy text-white font-semibold text-sm transition-all shadow-md shadow-sky-900/40">
+                        <span>Cotizar Ahora</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </nav>
+
+                <!-- Botón menú móvil -->
+                <button id="mobile-menu-btn" type="button" aria-label="Abrir menú" class="lg:hidden p-2.5 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 focus:outline-none">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú desplegable móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-tactical-navy border-t border-sky-500/20 px-4 pt-3 pb-6 space-y-2">
+            <a href="#inicio" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-tactical-slate hover:text-tactical-cyan">Inicio</a>
+            <a href="#servicios" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-tactical-slate hover:text-tactical-cyan">Servicios y Mantenimiento</a>
+            <a href="#planes" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-tactical-slate hover:text-tactical-cyan">Planes Mensuales</a>
+            <a href="#trabajos" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-tactical-slate hover:text-tactical-cyan">Trabajos Realizados</a>
+            <div class="pt-2">
+                <a href="#contacto" class="mobile-link flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl bg-tactical-pool text-white font-bold text-base shadow-lg">
+                    Cotizar Mantenimiento
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         2. HERO SECTION IMPACTANTE
+    ====================================================================== -->
+    <section id="inicio" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 aqua-gradient tactical-grid text-white overflow-hidden">
+        <!-- Destellos decorativos -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-tactical-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-10 w-80 h-80 bg-tactical-pool/25 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Columna izquierda: Propuesta de valor -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-tactical-slate/90 border border-tactical-cyan/30 text-tactical-cyan text-xs font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-tactical-cyan animate-pulse"></span>
+                        Operaciones en Casablanca, Lo Orozco y V Región
+                    </div>
+
+                    <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-[3.35rem] leading-[1.12] tracking-tight text-white">
+                        Precisión táctica y <span class="text-transparent bg-clip-text bg-gradient-to-r from-tactical-cyan to-sky-200">agua cristalina</span> todo el año.
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        Especialistas en mantenimiento preventivo, limpieza profunda, balance químico exacto, recuperación de aguas verdes y reparación de equipos en parcelas y residencias de Casablanca y la Región de Valparaíso.
+                    </p>
+
+                    <!-- Botones principales de acción (CTA) -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#planes" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-tactical-cyan hover:bg-sky-300 text-tactical-navy font-display font-bold text-sm sm:text-base transition-all shadow-lg shadow-sky-400/25">
+                            <span>Ver Planes Mensuales</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/56941176083?text=Hola%20Tacticalpool,%20me%20gustar%C3%ADa%20cotizar%20el%20mantenimiento%20de%20mi%20piscina." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base transition-all backdrop-blur-sm">
+                            <!-- Icono WhatsApp -->
+                            <svg class="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+                            </svg>
+                            <span>Cotizar por WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <!-- Indicadores de confianza tácticos -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+                        <div>
+                            <p class="font-display font-extrabold text-2xl sm:text-3xl text-tactical-cyan">100%</p>
+                            <p class="text-xs sm:text-sm text-slate-300">Reporte fotográfico por visita</p>
+                        </div>
+                        <div>
+                            <p class="font-display font-extrabold text-2xl sm:text-3xl text-white">7.2 - 7.6</p>
+                            <p class="text-xs sm:text-sm text-slate-300">Calibración exacta de pH y cloro</p>
+                        </div>
+                        <div>
+                            <p class="font-display font-extrabold text-2xl sm:text-3xl text-tactical-cyan">24/48h</p>
+                            <p class="text-xs sm:text-sm text-slate-300">Respuesta rápida en V Región</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna derecha: Tarjeta visual con fotografía y panel de telemetría de piscina -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden border border-tactical-cyan/30 bg-tactical-slate shadow-2xl">
+                        <div class="relative h-72 sm:h-80 overflow-hidden bg-gradient-to-br from-sky-600 to-tactical-navy">
+                            <img 
+                                src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1000&q=80" 
+                                alt="Piscina residencial cristalina mantenida por Tacticalpool" 
+                                class="w-full h-full object-cover object-center"
+                                onerror="this.style.display='none'"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-tactical-navy via-tactical-navy/20 to-transparent"></div>
+                            
+                            <!-- Etiqueta superior derecha -->
+                            <div class="absolute top-4 right-4 px-3 py-1 rounded-lg bg-tactical-navy/85 backdrop-blur-md border border-tactical-cyan/40 text-xs font-semibold text-tactical-cyan flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                Estado: Óptimo
+                            </div>
+                        </div>
+
+                        <!-- Panel inferior estilo bitácora técnica -->
+                        <div class="p-6 bg-tactical-navy/95 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs uppercase tracking-wider text-sky-400 font-semibold">Bitácora de Control Técnico</p>
+                                    <h2 class="font-display font-bold text-white text-base">Protocolo Tacticalpool V-Región</h2>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-md bg-sky-500/15 text-sky-300 text-xs font-mono">CERT-CL</span>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2.5 text-center">
+                                <div class="p-2.5 rounded-xl bg-tactical-slate border border-white/5">
+                                    <span class="block text-[11px] text-slate-400">Cloro Libre</span>
+                                    <span class="font-display font-bold text-sm text-emerald-400">1.5 ppm</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-tactical-slate border border-white/5">
+                                    <span class="block text-[11px] text-slate-400">Nivel pH</span>
+                                    <span class="font-display font-bold text-sm text-tactical-cyan">7.4</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-tactical-slate border border-white/5">
+                                    <span class="block text-[11px] text-slate-400">Turbidez</span>
+                                    <span class="font-display font-bold text-sm text-white">0.1 NTU</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         3. SECCIÓN DE SERVICIOS Y MANTENIMIENTOS
+    ====================================================================== -->
+    <section id="servicios" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Encabezado de sección -->
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-tactical-light text-tactical-pool font-semibold text-xs uppercase tracking-wider">
+                    Operaciones & Ingeniería Hidráulica
+                </span>
+                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-tactical-navy">
+                    Servicios Profesionales de Mantenimiento
+                </h2>
+                <p class="text-slate-600 text-base sm:text-lg">
+                    Aplicamos protocolos técnicos rigurosos para proteger el revestimiento de tu piscina, prolongar la vida útil de tus bombas y garantizar agua segura para tu familia.
+                </p>
+            </div>
+
+            <!-- Grid de 6 tarjetas detalladas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Servicio 1 -->
+                <div class="group p-7 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-tactical-pool hover:bg-white hover:shadow-xl hover:shadow-sky-900/5 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-tactical-navy text-tactical-cyan flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-tactical-navy mb-2.5">Mantenimiento Preventivo y Correctivo</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Inspección periódica programada para detectar fugas, desgaste de sellos, ruidos anómalos
