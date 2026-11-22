@@ -1,272 +1,314 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tacticalpool | Mantenimiento y Limpieza de Piscinas</title>
-  <meta name="description" content="Mantenimiento preventivo, limpieza profunda, balance químico y reparación de equipos de piscinas en Casablanca, Lo Orozco y V Región.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#0A192F',
-            navyLight: '#112240',
-            pool: '#0284C7',
-            cyanGlow: '#38BDF8',
-          },
-          fontFamily: {
-            heading: ['Montserrat', 'sans-serif'],
-            sans: ['Inter', 'sans-serif'],
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tacticalpool | Mantenimiento, Limpieza y Automatización de Piscinas</title>
+    <meta name="description" content="Mantenimiento mensual de piscinas con químicos incluidos, recuperación de aguas verdes, tinajas y automatización de bombas vía celular en la Región de Valparaíso.">
+    
+    <!-- Google Fonts: Inter & Rajdhani para un toque táctico y técnico -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconografía técnica -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tactical: {
+                            dark: '#141517',
+                            card: '#1c1e22',
+                            border: '#2a2d34',
+                            cyan: '#3FA9DC',
+                            cyanDark: '#1D5B96',
+                            lime: '#8EC641',
+                            limeDark: '#73a62f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
+    </script>
+
+    <style>
+        /* Estilos personalizados para acabados tácticos y animaciones suaves */
+        body {
+            background-color: #141517;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .tactical-grid-bg {
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(63, 169, 220, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 15% 80%, rgba(142, 198, 65, 0.08) 0%, transparent 45%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(63, 169, 220, 0.25);
+        }
+
+        .glow-lime {
+            box-shadow: 0 0 25px rgba(142, 198, 65, 0.25);
+        }
+
+        .plan-card {
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-6px);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-float {
+            animation: pulse-ring 2.5s infinite;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="antialiased selection:bg-tactical-cyan selection:text-tactical-dark">
 
-  <!-- Navegación -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur-md border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="#inicio" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-pool/20 border border-cyanGlow/40 flex items-center justify-center text-cyanGlow">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"></circle>
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
-          </svg>
-        </div>
-        <div>
-          <span class="font-heading font-extrabold text-white tracking-wider text-lg">TACTICAL<span class="text-cyanGlow">POOL</span></span>
-          <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Casablanca • V Región</p>
-        </div>
-      </a>
+    <!-- ==================== HEADER / NAVEGACIÓN FIJA ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#141517]/90 backdrop-blur-md border-b border-tactical-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logotipo SVG Vectorial Fiel a Tacticalpool -->
+                <a href="#inicio" class="flex items-center gap-3 group focus:outline-none">
+                    <svg class="w-12 h-12 shrink-0 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Tacticalpool">
+                        <!-- Aro exterior con cortes tipo mira táctica -->
+                        <path d="M56 10A50 50 0 0 0 10 56H18A42 42 0 0 1 56 18V10Z" fill="#3FA9DC"/>
+                        <path d="M64 10V18A42 42 0 0 1 102 56H110A50 50 0 0 0 64 10Z" fill="#3FA9DC"/>
+                        <!-- Parte inferior del aro con agua -->
+                        <path d="M10 64A50 50 0 0 0 56 110V102A42 42 0 0 1 18 64H10Z" fill="#3FA9DC"/>
+                        <path d="M102 64A42 42 0 0 1 64 102V110A50 50 0 0 0 110 64H102Z" fill="#3FA9DC"/>
+                        <!-- Relleno de agua inferior -->
+                        <path d="M18 72C26 68 34 76 42 72C50 68 54 74 60 74C66 74 70 68 78 72C86 76 94 68 102 72C100 90 82 103 60 103C38 103 20 90 18 72Z" fill="#3FA9DC"/>
+                        <path d="M24 82C34 79 44 87 56 84C68 81 80 88 96 81C90 95 76 103 60 103C44 103 30 95 24 82Z" fill="#1D5B96"/>
+                        <!-- Escalera de piscina -->
+                        <path d="M54 64V76M66 64V76M54 69H66" stroke="#141517" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Gota central celeste/azul/verde lima -->
+                        <path d="M60 22C60 22 41 42 41 55C41 65.5 49.5 74 60 74C70.5 74 79 65.5 79 55C79 42 60 22 60 22Z" fill="#3FA9DC"/>
+                        <!-- Detalle hoja/gota verde lima derecha -->
+                        <path d="M62 27C69 35 76 45 76 54C76 57 74 59 71 58C64 56 60 47 62 27Z" fill="#8EC641"/>
+                        <!-- Ondas oscuras dentro de la gota -->
+                        <path d="M42 54C49 52 55 58 63 58C70 58 75 55 78 53C77 65 69 74 60 74C50 74 42 65 42 54Z" fill="#1D5B96"/>
+                        <!-- Burbujas tácticas -->
+                        <circle cx="33" cy="45" r="2.5" fill="#8EC641"/>
+                        <circle cx="86" cy="41" r="2.2" fill="#8EC641"/>
+                        <circle cx="88" cy="58" r="2" fill="#8EC641"/>
+                        <circle cx="31" cy="57" r="2" fill="#3FA9DC"/>
+                        <circle cx="69" cy="47" r="4" stroke="#141517" stroke-width="1.5"/>
+                    </svg>
+                    <div class="flex flex-col">
+                        <div class="font-display font-bold text-2xl sm:text-3xl tracking-wider leading-none">
+                            <span class="text-tactical-cyan">TACTICAL</span><span class="text-tactical-lime">POOL</span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-semibold tracking-widest text-tactical-cyan/90 uppercase mt-0.5">
+                            Mantenimiento y Limpieza de Piscinas
+                        </span>
+                    </div>
+                </a>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
-        <a href="#servicios" class="hover:text-cyanGlow transition">Servicios</a>
-        <a href="#planes" class="hover:text-cyanGlow transition">Planes Mensuales</a>
-        <a href="#trabajos" class="hover:text-cyanGlow transition">Trabajos</a>
-        <a href="#contacto" class="bg-pool hover:bg-sky-500 text-white px-4 py-2 rounded-lg font-semibold transition">Cotizar</a>
-      </nav>
+                <!-- Menú Desktop -->
+                <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-gray-300">
+                    <a href="#inicio" class="hover:text-tactical-cyan transition-colors">Inicio</a>
+                    <a href="#planes" class="hover:text-tactical-cyan transition-colors">Planes Mensuales</a>
+                    <a href="#servicios" class="hover:text-tactical-cyan transition-colors">Servicios & Automatización</a>
+                    <a href="#contacto" class="hover:text-tactical-cyan transition-colors">Contacto</a>
+                </nav>
 
-      <button id="menuBtn" class="md:hidden text-white p-2 rounded-lg hover:bg-navyLight" aria-label="Menú">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
+                <!-- Botón WhatsApp Header + Botón Menú Móvil -->
+                <div class="flex items-center gap-3">
+                    <a href="https://wa.me/56941176083?text=Hola%20Tacticalpool%2C%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20mantenimiento%20de%20piscinas." 
+                       target="_blank" rel="noopener noreferrer"
+                       class="hidden sm:inline-flex items-center gap-2 bg-tactical-lime hover:bg-tactical-limeDark text-tactical-dark font-bold text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg hover:shadow-tactical-lime/30">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>+56 9 4117 6083</span>
+                    </a>
 
-    <div id="mobileMenu" class="hidden md:hidden bg-navyLight border-b border-slate-800 px-4 py-4 space-y-3 text-sm text-slate-200">
-      <a href="#servicios" class="block py-1.5 hover:text-cyanGlow">Servicios</a>
-      <a href="#planes" class="block py-1.5 hover:text-cyanGlow">Planes Mensuales</a>
-      <a href="#trabajos" class="block py-1.5 hover:text-cyanGlow">Trabajos Realizados</a>
-      <a href="#contacto" class="block py-2 text-center bg-pool text-white rounded-lg font-semibold">Cotizar Ahora</a>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="inicio" class="pt-28 pb-16 sm:pt-36 sm:pb-24 bg-gradient-to-br from-navy via-[#0E2442] to-[#081526] text-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navyLight/90 border border-cyanGlow/30 text-xs font-semibold tracking-wider text-cyanGlow uppercase">
-          <span class="w-2 h-2 rounded-full bg-cyanGlow animate-pulse"></span>
-          Operaciones en Casablanca, Lo Orozco y V Región
-        </div>
-        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl leading-tight">
-          Precisión táctica y <span class="text-cyanGlow">agua cristalina</span> todo el año.
-        </h1>
-        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-          Especialistas en mantenimiento preventivo, limpieza profunda, balance químico exacto, recuperación de aguas verdes y reparación de equipos en parcelas y residencias de Casablanca y la Región de Valparaíso.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3.5 pt-2">
-          <a href="#planes" class="inline-flex items-center justify-center gap-2 bg-cyanGlow hover:bg-sky-300 text-navy font-heading font-bold px-6 py-3.5 rounded-xl transition shadow-lg shadow-cyanGlow/20">
-            Ver Planes Mensuales
-            <span>&rsaquo;</span>
-          </a>
-          <a href="https://wa.me/56941176083?text=Hola%20Tacticalpool%2C%20me%20gustar%C3%ADa%20cotizar%20el%20mantenimiento%20de%20mi%20piscina." target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-navyLight hover:bg-slate-800 border border-slate-700 text-white font-semibold px-6 py-3.5 rounded-xl transition">
-            Cotizar por WhatsApp
-          </a>
-        </div>
-        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 text-xs sm:text-sm">
-          <div>
-            <p class="font-heading font-extrabold text-xl sm:text-2xl text-cyanGlow">100%</p>
-            <p class="text-slate-400">Reporte fotográfico por visita</p>
-          </div>
-          <div>
-            <p class="font-heading font-extrabold text-xl sm:text-2xl text-cyanGlow">7.2 - 7.6</p>
-            <p class="text-slate-400">Calibración exacta de pH y cloro</p>
-          </div>
-          <div>
-            <p class="font-heading font-extrabold text-xl sm:text-2xl text-cyanGlow">24/48h</p>
-            <p class="text-slate-400">Respuesta rápida en V Región</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel Telemetría -->
-      <div class="lg:col-span-5">
-        <div class="bg-navyLight/90 border border-cyanGlow/30 rounded-2xl p-6 shadow-2xl space-y-5">
-          <div class="flex items-center justify-between border-b border-slate-700/80 pb-4">
-            <div>
-              <p class="text-xs uppercase tracking-widest text-cyanGlow font-semibold">Control Operativo</p>
-              <h2 class="font-heading font-bold text-lg text-white">Estándar de Calidad Tacticalpool</h2>
+                    <button id="mobile-menu-btn" aria-label="Abrir menú" class="lg:hidden p-2.5 rounded-xl bg-tactical-card border border-tactical-border text-gray-200 hover:text-tactical-cyan">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-            <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">ÓPTIMO</span>
-          </div>
-          <div class="space-y-3 text-sm">
-            <div class="flex justify-between items-center bg-navy/70 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-300">Nivel de pH</span>
-              <span class="font-bold text-cyanGlow">7.4 Ideal</span>
-            </div>
-            <div class="flex justify-between items-center bg-navy/70 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-300">Cloro Libre Activo</span>
-              <span class="font-bold text-cyanGlow">1.5 - 2.0 ppm</span>
-            </div>
-            <div class="flex justify-between items-center bg-navy/70 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-300">Alcalinidad Total</span>
-              <span class="font-bold text-cyanGlow">100 ppm</span>
-            </div>
-            <div class="flex justify-between items-center bg-navy/70 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-300">Filtración y Skimmers</span>
-              <span class="font-bold text-emerald-400">Verificado</span>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Servicios -->
-  <section id="servicios" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <p class="text-xs font-bold uppercase tracking-widest text-pool">Servicios Especializados</p>
-      <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-navy mt-2">Mantenimiento Integral de Piscinas</h2>
-      <p class="text-slate-600 mt-3 text-sm sm:text-base">Protocolos técnicos diseñados para piscinas de hormigón, fibra de vidrio y revestimientos en parcelas y hogares.</p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">01</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Limpieza y Aspirado Profundo</h3>
-        <p class="text-slate-600 text-sm mt-2">Aspirado de fondo, cepillado de muros, línea de flotación, escaleras y limpieza de canastillos de skimmers y prefiltro.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">02</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Balance Químico de Precisión</h3>
-        <p class="text-slate-600 text-sm mt-2">Medición fotométrica y ajuste exacto de pH, cloro libre, alcalinidad, dureza cálcica y prevención de algas.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">03</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Recuperación de Aguas Verdes</h3>
-        <p class="text-slate-600 text-sm mt-2">Tratamiento de choque, floculación, decantación y filtrado intensivo para rescatar piscinas abandonadas sin vaciar.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">04</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Bombas y Filtros</h3>
-        <p class="text-slate-600 text-sm mt-2">Diagnóstico, cambio de arena o vidrio filtrante, reparación de bombas de filtración, sellos mecánicos y válvulas multivía.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">05</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Automatización y Tableros</h3>
-        <p class="text-slate-600 text-sm mt-2">Programación de timers, protecciones eléctricas y control inteligente de encendido para ciclos de filtrado eficientes.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-pool/50 transition">
-        <div class="w-11 h-11 rounded-xl bg-sky-100 text-pool flex items-center justify-center font-bold text-lg mb-4">06</div>
-        <h3 class="font-heading font-bold text-lg text-navy">Reporte por WhatsApp</h3>
-        <p class="text-slate-600 text-sm mt-2">Al finalizar cada visita recibes fotografía del agua cristalina, parámetros medidos y detalle de químicos aplicados.</p>
-      </div>
-    </div>
-
-<!-- Planes Mensuales -->
-  <section id="planes" class="py-16 sm:py-24 bg-navy text-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-cyanGlow">Suscripciones Mensuales</p>
-        <h2 class="font-heading font-extrabold text-2xl sm:text-4xl mt-2">Planes de Mantenimiento</h2>
-        <p class="text-slate-300 mt-3 text-sm sm:text-base">Valores referenciales en pesos chilenos (CLP) según volumen de piscina y ubicación.</p>
-      </div>
-      </section>
-
-      <div class="grid md:grid-cols-3 gap-6 items-stretch">
-        <!-- Plan Básico -->
-        <div class="bg-navyLight border border-slate-700 rounded-2xl p-6 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Mantenimiento Esencial</span>
-            <h3 class="font-heading font-bold text-xl text-white mt-1">Plan Básico</h3>
-            <p class="mt-4">
-              <span class="text-xs text-slate-400 block">Desde</span>
-              <span class="font-heading font-extrabold text-3xl text-white">$70.000</span>
-              <span class="text-slate-400 text-sm"> / mes</span>
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-300">
-              <li>&#10003; 2 visitas mensuales programadas</li>
-              <li>&#10003; Aspirado de fondo y limpieza de superficie</li>
-              <li>&#10003; Limpieza de skimmers y retrolavado de filtro</li>
-              <li>&#10003; Medición y ajuste de pH y cloro</li>
-              <li>&#10003; Reporte fotográfico vía WhatsApp</li>
-            </ul>
-          </div>
-          </section>
-          
-       <!-- Plan Táctico / Full -->
-        <div class="bg-gradient-to-b from-[#153057] to-navyLight border-2 border-cyanGlow rounded-2xl p-6 flex flex-col justify-between shadow-xl shadow-cyanGlow/10 relative">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-cyanGlow">Más Elegido</span>
-              <span class="px-2.5 py-0.5 text-[11px] font-bold bg-cyanGlow text-navy rounded-full">RECOMENDADO</span>
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-tactical-card border-b border-tactical-border px-4 pt-3 pb-6 space-y-2">
+            <a href="#inicio" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-tactical-dark hover:text-tactical-cyan">Inicio</a>
+            <a href="#planes" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-tactical-dark hover:text-tactical-cyan">Planes Mensuales</a>
+            <a href="#servicios" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-tactical-dark hover:text-tactical-cyan">Servicios & Automatización</a>
+            <a href="#contacto" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-tactical-dark hover:text-tactical-cyan">Contacto</a>
+            <div class="pt-2">
+                <a href="https://wa.me/56941176083?text=Hola%20Tacticalpool%2C%20quiero%20cotizar%20una%20visita%20t%C3%A9cnica." 
+                   target="_blank" rel="noopener noreferrer"
+                   class="flex items-center justify-center gap-2 w-full bg-tactical-lime text-tactical-dark font-bold py-3 rounded-xl">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Hablar por WhatsApp</span>
+                </a>
             </div>
-            <h3 class="font-heading font-bold text-xl text-white mt-1">Plan Táctico / Full</h3>
-            <p class="mt-4">
-              <span class="text-xs text-slate-300 block">Desde</span>
-              <span class="font-heading font-extrabold text-3xl text-cyanGlow">$100.000</span>
-              <span class="text-slate-300 text-sm"> / mes</span>
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-200">
-              <li>&#10003; 4 visitas mensuales (1 por semana)</li>
-              <li>&#10003; Productos químicos incluidos (cloro, regulador pH, alguicida)</li>
-              <li>&#10003; Aspirado completo, cepillado de muros y línea de agua</li>
-              <li>&#10003; Revisión preventiva de bomba, filtro y timer</li>
-              <li>&#10003; Prioridad de atención ante emergencias</li>
-            </ul>
-          </div>
-          </section>
-          
-      <!-- Plan Condominios -->
-        <div class="bg-navyLight border border-slate-700 rounded-2xl p-6 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Alto Tráfico</span>
-            <h3 class="font-heading font-bold text-xl text-white mt-1">Plan Condominios</h3>
-            <p class="mt-4">
-              <span class="text-xs text-slate-400 block">Desde</span>
-              <span class="font-heading font-extrabold text-3xl text-white">$180.000</span>
-              <span class="text-slate-400 text-sm"> / mes</span>
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-300">
-              <li>&#10003; 2 a 3 visitas semanales según temporada</li>
-              <li>&#10003; Bitácora técnica de parámetros para administración</li>
-              <li>&#10003; Control sanitario estricto para uso comunitario</li>
-              <li>&#10003; Mantención de sala de máquinas y bombas</li>
-              <li>&#10003; Asesoría técnica permanente</li>
-            </ul>
-          </div>
-        </section>
-          
         </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
- <!-- Footer -->
-  <footer class="bg-navy text-slate-400 py-10 text-center text-sm border-t border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 space-y-2">
-      <p class="font-heading font-bold text-white text-base">TACTICAL<span class="text-cyanGlow">POOL</span></p>
-      <p>Mantenimiento, Limpieza y Filtración de Piscinas • Casablanca y V Región</p>
-      <p>
-        WhatsApp / Teléfono:
-        +56941176083
-        <a href=
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="inicio" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 tactical-grid-bg border-b border-tactical-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Columna Texto -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-tactical-card border border-tactical-cyan/40 text-tactical-cyan text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-tactical-lime animate-ping"></span>
+                        <span>PRECISIÓN EN CADA GOTA • REGIÓN DE VALPARAÍSO</span>
+                    </div>
+
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                        Precisión en cada gota: <span class="text-tactical-cyan">Mantenimiento</span> y <span class="text-tactical-lime">Automatización</span> de Piscinas
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed">
+                        Mantenemos tu piscina o tinaja cristalina todo el año con protocolos técnicos rigurosos, <strong class="text-white">productos químicos incluidos</strong>, reporte fotográfico en tiempo real vía WhatsApp e instalación de control inteligente desde tu celular.
+                    </p>
+
+                    <!-- Botones de Acción -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="https://wa.me/56941176083?text=Hola%20Tacticalpool%2C%20me%20gustar%C3%ADa%20agendar%20una%20visita%20t%C3%A9cnica%20de%20evaluaci%C3%B3n%20para%20mi%20piscina." 
+                           target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center justify-center gap-3 bg-tactical-lime hover:bg-tactical-limeDark text-tactical-dark font-extrabold text-base px-7 py-4 rounded-xl transition-all glow-lime">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>Cotizar Visita Técnica</span>
+                        </a>
+                        <a href="#planes" 
+                           class="inline-flex items-center justify-center gap-2 bg-tactical-card hover:bg-tactical-border text-white border border-tactical-cyan/50 font-semibold text-base px-7 py-4 rounded-xl transition-all">
+                            <span>Ver Planes Mensuales</span>
+                            <i class="fa-solid fa-arrow-down text-tactical-cyan"></i>
+                        </a>
+                    </div>
+
+                    <!-- Indicadores de confianza -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-tactical-border/80">
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-bold text-tactical-cyan">100%</p>
+                            <p class="text-xs sm:text-sm text-gray-400">Químicos incluidos</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-bold text-tactical-lime">WhatsApp</p>
+                            <p class="text-xs sm:text-sm text-gray-400">Registro fotográfico</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-bold text-white">Smart Wi-Fi</p>
+                            <p class="text-xs sm:text-sm text-gray-400">Control por celular</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Visual / Tarjeta de Telemetría y Estado -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden bg-tactical-card border border-tactical-border p-3 shadow-2xl glow-cyan">
+                        <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1000&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/1c1e22/3FA9DC?text=Tacticalpool+Piscina+Cristalina'"
+                                 alt="Piscina cristalina mantenida por Tacticalpool" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#141517] via-transparent to-transparent"></div>
+                            
+                            <!-- Badge superior -->
+                            <div class="absolute top-3 left-3 bg-[#141517]/85 backdrop-blur-md border border-tactical-cyan/40 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                                <i class="fa-solid fa-crosshairs text-tactical-cyan text-xs"></i>
+                                <span class="text-xs font-semibold text-white">Parámetros Óptimos</span>
+                            </div>
+                        </div>
+
+                        <!-- Panel inferior estilo reporte técnico -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold uppercase tracking-wider text-tactical-lime">Reporte Post-Visita Táctica</span>
+                                <span class="text-xs text-gray-400"><i class="fa-solid fa-camera mr-1 text-tactical-cyan"></i> Enviado vía WhatsApp</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-center">
+                                <div class="bg-[#141517] border border-tactical-border rounded-lg p-2.5">
+                                    <span class="block text-[11px] text-gray-400">Nivel pH</span>
+                                    <span class="font-display font-bold text-lg text-tactical-cyan">7.4</span>
+                                </div>
+                                <div class="bg-[#141517] border border-tactical-border rounded-lg p-2.5">
+                                    <span class="block text-[11px] text-gray-400">Cloro Libre</span>
+                                    <span class="font-display font-bold text-lg text-tactical-lime">1.8 ppm</span>
+                                </div>
+                                <div class="bg-[#141517] border border-tactical-border rounded-lg p-2.5">
+                                    <span class="block text-[11px] text-gray-400">Bomba Wi-Fi</span>
+                                    <span class="font-display font-bold text-lg text-emerald-400">ACTIVA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PLANES MENSUALES ==================== -->
+    <section id="planes" class="py-20 lg:py-28 bg-[#141517]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Encabezado Sección -->
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-10">
+                <span class="text-tactical-cyan font-bold text-sm uppercase tracking-widest">Mantenimiento Preventivo Programado</span>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+                    Planes Mensuales de <span class="text-tactical-lime">Limpieza y Control</span>
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg">
+                    Olvídate de comprar bidones de cloro o medir químicos. Nosotros nos encargamos de todo con transparencia total en cada visita.
+                </p>
+            </div>
+
+            <!-- Nota Destacada Obligatoria -->
+            <div class="max-w-4xl mx-auto mb-14 bg-gradient-to-r from-tactical-cyanDark/30 via-tactical-card to-tactical-lime/15 border border-tactical-cyan/50 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left shadow-lg">
+                <div class="w-10 h-10 rounded-xl bg-tactical-cyan/20 text-tactical-cyan flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-flask-vial text-xl"></i>
+                </div>
+                <p class="text-sm sm:text-base text-gray-100 font-medium">
+                    <strong class="text-tactical-lime">Importante:</strong> Todos nuestros planes incluyen <strong class="text-white">productos químicos de alta calidad</strong>. El valor final mensual se determina <strong class="text-tactical-cyan">previa visita técnica de evaluación</strong> según dimensiones (m³) y equipamiento de la piscina.
+                </p>
+            </div>
+
+            <!-- Grid de 3 Planes -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- PLAN 1: BÁSICO -->
+                <div class="plan-card flex flex-col justify-between bg-tactical-card border border-tactical-border hover:border-tactical-cyan/60 rounded-2xl p-7 sm:p-8">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-lg bg-tactical-cyan/15 text-tactical-cyan text-xs font-bold uppercase tracking-wider">
+                                Residencial
+                            </span>
+                            <span class="text-sm font-semibold text-gray-300">
+                                <i class="fa-regular f
