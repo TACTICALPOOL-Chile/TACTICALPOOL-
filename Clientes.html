@@ -1,0 +1,574 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  signInAnonymously,
+  signInWithCustomToken,
+  onAuthStateChanged
+} from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+  onSnapshot
+} from 'firebase/firestore';
+import {
+  Droplets,
+  CheckCircle2,
+  Clock,
+  MapPin,
+  Phone,
+  Camera,
+  Send,
+  UserCheck,
+  ShieldCheck,
+  Plus,
+  Trash2,
+  Navigation,
+  Sparkles,
+  FlaskConical,
+  ClipboardCheck,
+  Share2,
+  AlertCircle,
+  Check,
+  RotateCcw,
+  ExternalLink,
+  Copy,
+  Image as ImageIcon,
+  X,
+  Award,
+  Wrench,
+  Calendar,
+  Search,
+  Printer,
+  Cloud,
+  CloudOff,
+  PenTool,
+  User
+} from 'lucide-react';
+
+// --- CONFIGURACIÓN FIREBASE ---
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+const app = firebaseConfig ? initializeApp(firebaseConfig) : null;
+const auth = app ? getAuth(app) : null;
+const db = app ? getFirestore(app) : null;
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'tacticalpool-chile-prod';
+
+// --- CONSTANTES DE MARCA Y PROTOCOLO ---
+const BRAND_INFO = {
+  name: 'TACTICALPOOL',
+  slogan: 'Precisión en cada gota',
+  phoneDisplay: '+56 9 4117 6083',
+  phoneRaw: '56941176083',
+  region: 'Región de Valparaíso, Chile'
+};
+
+const TECHNICIANS = ['Ángel', 'Anai'];
+
+const CHECKLIST_TEMPLATE = [
+  { id: 'superficial', label: 'Limpieza superficial', category: 'Limpieza Física', description: 'Retiro de hojas, insectos y sólidos flotantes con chinguillo.' },
+  { id: 'skimmer', label: 'Limpieza skimmer', category: 'Filtración', description: 'Vaciado y lavado de canastillo de skimmer y revisión de compuerta.' },
+  { id: 'canastillos_bomba', label: 'Limpieza canastillos bomba', category: 'Filtración', description: 'Cierre de válvulas, purga y limpieza de prefiltro de motobomba.' },
+  { id: 'retrolavado', label: 'Retrolavado', category: 'Filtración', description: 'Lavado a contracorriente del filtro hasta visor cristalino.' },
+  { id: 'enjuague', label: 'Enjuague', category: 'Filtración', description: 'Asentamiento de lecho filtrante y expulsión de residuos residuales.' },
+  { id: 'cepillado', label: 'Cepillado', category: 'Limpieza Física', description: 'Cepillado de muros, escaleras, línea de flotación y rincones.' },
+  { id: 'productos', label: 'Aplicación de productos', category: 'Química', description: 'Dosificación calculada según volumen y temperatura del agua.' },
+  { id: 'cloro_ph', label: 'Nivel cloro y pH', category: 'Química', description: 'Medición fotométrica/reactivos y balance de parámetros.' },
+  { id: 'aspirado', label: 'Aspirado', category: 'Limpieza Física', description: 'Aspirado de fondo de piscina eliminando sedimentos finos.' }
+];
+
+const PRODUCTOS_DISPONIBLES = [
+  'Cloro granulado',
+  'Tabletas triple acción',
+  'Regulador pH-',
+  'Regulador pH+',
+  'Alguicida',
+  'Clarificador'
+];
+
+// Generar imágenes SVG ligeras para demostración inicial
+const createDemoPhoto = (type, title, subtitle) => {
+  const isBefore = type === 'before';
+  const bg1 = isBefore ? '#3b5249' : '#0077b6';
+  const bg2 = isBefore ? '#5c7457' : '#00b4d8';
+  const accent = isBefore ? '#d97706' : '#38bdf8';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+    <defs>
+      <linearGradient id="poolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${bg1}"/>
+        <stop offset="100%" stop-color="${bg2}"/>
+      </linearGradient>
+      <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="800" height="500" fill="url(#poolGrad)"/>
+    <rect width="800" height="500" fill="url(#tiles)"/>
+    <circle cx="620" cy="120" r="140" fill="rgba(255,255,255,0.08)"/>
+    <circle cx="180" cy="380" r="180" fill="rgba(255,255,255,0.06)"/>
+    <rect x="32" y="32" rx="12" width="180" height="38" fill="rgba(11,25,44,0.75)"/>
+    <text x="122" y="57" font-family="sans-serif" font-size="15" font-weight="bold" fill="${accent}" text-anchor="middle">${isBefore ? 'RECEPCIÓN / ANTES' : 'ENTREGA / DESPUÉS'}</text>
+    <rect x="32" y="385" rx="14" width="736" height="83" fill="rgba(11,25,44,0.82)"/>
+    <text x="56" y="422" font-family="sans-serif" font-size="22" font-weight="bold" fill="#ffffff">${title}</text>
+    <text x="56" y="450" font-family="sans-serif" font-size="15" fill="#94a3b8">${subtitle} • Tacticalpool Chile</text>
+  </svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+};
+
+const getTodayFormatted = () => {
+  return new Date().toLocaleDateString('es-CL', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+};
+
+const INITIAL_ORDERS = [
+  {
+    id: 'TP-2026-101',
+    name: 'Familia Valdés Echeverría',
+    address: 'Condominio Bosques de Montemar, Parcela 14, Concón',
+    phone: '56987654321',
+    poolType: 'Hormigón Pintado • 45.000 L',
+    technician: 'Ángel',
+    serviceDate: getTodayFormatted(),
+    notes: 'Portón automático clave #4589. Perro labrador amigable en patio trasero.',
+    status: 'En Servicio', // 'Pendiente' | 'En Camino' | 'En Servicio' | 'Finalizado'
+    scheduledTime: '09:30',
+    arrivalTime: '09:34',
+    departureTime: null,
+    durationMinutes: null,
+    checklist: {
+      superficial: true,
+      skimmer: true,
+      canastillos_bomba: true,
+      retrolavado: true,
+      enjuague: true,
+      cepillado: true,
+      productos: false,
+      cloro_ph: true,
+      aspirado: false
+    },
+    chemistry: {
+      chlorine: 1.8,
+      ph: 7.4,
+      productsUsed: ['Cloro granulado', 'Clarificador']
+    },
+    techNotes: 'Se encontró acumulación moderada de hojas por viento costero. Presión de filtro normalizada tras retrolavado.',
+    photos: [
+      {
+        id: 'p-1',
+        type: 'before',
+        url: createDemoPhoto('before', 'Estado Inicial - Superficie y Fondo', 'Hojas en superficie y leve turbidez matinal'),
+        caption: 'Recepción: Hojas en superficie antes de chinguillo',
+        timestamp: '09:36'
+      }
+    ],
+    clientApproval: {
+      approved: false,
+      clientName: '',
+      comment: '',
+      signatureDataUrl: '',
+      approvedAt: null
+    }
+  },
+  {
+    id: 'TP-2026-102',
+    name: 'Rodrigo Maturana',
+    address: 'Parcela Lo Orozco Km 12, Casa 4, Quilpué',
+    phone: '56991234567',
+    poolType: 'Fibra de Vidrio • 32.000 L',
+    technician: 'Anai',
+    serviceDate: getTodayFormatted(),
+    notes: 'Avisar 15 minutos antes por WhatsApp para abrir acceso.',
+    status: 'Pendiente',
+    scheduledTime: '11:30',
+    arrivalTime: null,
+    departureTime: null,
+    durationMinutes: null,
+    checklist: {
+      superficial: false,
+      skimmer: false,
+      canastillos_bomba: false,
+      retrolavado: false,
+      enjuague: false,
+      cepillado: false,
+      productos: false,
+      cloro_ph: false,
+      aspirado: false
+    },
+    chemistry: {
+      chlorine: 1.5,
+      ph: 7.4,
+      productsUsed: []
+    },
+    techNotes: '',
+    photos: [],
+    clientApproval: {
+      approved: false,
+      clientName: '',
+      comment: '',
+      signatureDataUrl: '',
+      approvedAt: null
+    }
+  },
+  {
+    id: 'TP-2026-103',
+    name: 'Carolina Sepúlveda',
+    address: 'Jardín del Mar, Av. Borgoño 1420, Viña del Mar',
+    phone: '56976543210',
+    poolType: 'Revestimiento Fulget • 38.000 L',
+    technician: 'Ángel',
+    serviceDate: getTodayFormatted(),
+    notes: 'Bomba programada de 10:00 a 16:00 hrs.',
+    status: 'Finalizado',
+    scheduledTime: '08:00',
+    arrivalTime: '08:05',
+    departureTime: '08:52',
+    durationMinutes: 47,
+    checklist: {
+      superficial: true,
+      skimmer: true,
+      canastillos_bomba: true,
+      retrolavado: true,
+      enjuague: true,
+      cepillado: true,
+      productos: true,
+      cloro_ph: true,
+      aspirado: true
+    },
+    chemistry: {
+      chlorine: 2.2,
+      ph: 7.3,
+      productsUsed: ['Cloro granulado', 'Alguicida', 'Tabletas triple acción']
+    },
+    techNotes: 'Mantenimiento preventivo completo. Agua cristalina, niveles balanceados en rango óptimo para el fin de semana.',
+    photos: [
+      {
+        id: 'p-2',
+        type: 'before',
+        url: createDemoPhoto('before', 'Recepción 08:05 hrs', 'Sedimento fino en zona profunda'),
+        caption: 'Antes del aspirado de fondo',
+        timestamp: '08:07'
+      },
+      {
+        id: 'p-3',
+        type: 'after',
+        url: createDemoPhoto('after', 'Entrega Final 08:52 hrs', 'Agua cristalina y fondo impecable'),
+        caption: 'Servicio entregado - Parámetros óptimos',
+        timestamp: '08:50'
+      }
+    ],
+    clientApproval: {
+      approved: true,
+      clientName: 'Carolina Sepúlveda',
+      comment: 'Excelente servicio como siempre, muy puntuales y prolijos.',
+      signatureDataUrl: '',
+      approvedAt: '09:15'
+    }
+  }
+];
+
+// --- FUNCIONES AUXILIARES ---
+const getCurrentTimeStr = () => {
+  const now = new Date();
+  return now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+};
+
+const calculateMinutesDiff = (startStr, endStr) => {
+  if (!startStr || !endStr) return 45;
+  const [sh, sm] = startStr.split(':').map(Number);
+  const [eh, em] = endStr.split(':').map(Number);
+  const diff = (eh * 60 + em) - (sh * 60 + sm);
+  return diff > 0 ? diff : 1;
+};
+
+const getChlorineStatus = (val) => {
+  const num = parseFloat(val);
+  if (isNaN(num)) return { label: 'Sin medir', ok: false };
+  if (num < 1.0) return { label: 'Bajo (< 1.0 ppm)', ok: false };
+  if (num > 3.0) return { label: 'Alto (> 3.0 ppm)', ok: false };
+  return { label: 'Óptimo (1.0 - 3.0)', ok: true };
+};
+
+const getPhStatus = (val) => {
+  const num = parseFloat(val);
+  if (isNaN(num)) return { label: 'Sin medir', ok: false };
+  if (num < 7.2) return { label: 'Ácido (< 7.2)', ok: false };
+  if (num > 7.6) return { label: 'Alcalino (> 7.6)', ok: false };
+  return { label: 'Óptimo (7.2 - 7.6)', ok: true };
+};
+
+// Compresión automática de fotografías en navegador para subida rápida a Firestore (<1MB por doc)
+const compressImageFile = (file, maxWidth = 850, quality = 0.68) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = event.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
+// --- COMPONENTE: LOGO TACTICALPOOL ---
+const TacticalpoolLogo = ({ size = 'md', darkText = false }) => {
+  const dims = size === 'sm' ? 'w-8 h-8' : size === 'lg' ? 'w-12 h-12' : 'w-10 h-10';
+  return (
+    <div className="flex items-center gap-3 select-none">
+      <div className={`${dims} rounded-xl bg-gradient-to-br from-[#00B4D8] to-[#0077B6] p-0.5 shadow-lg shadow-cyan-500/25 flex-shrink-0`}>
+        <div className="w-full h-full bg-[#0B192C] rounded-[10px] flex items-center justify-center relative overflow-hidden">
+          <svg viewBox="0 0 36 36" className="w-6 h-6">
+            <circle cx="18" cy="18" r="13" fill="none" stroke="#00B4D8" strokeWidth="1.8" strokeDasharray="4 2" />
+            <line x1="18" y1="2" x2="18" y2="7" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" />
+            <line x1="18" y1="29" x2="18" y2="34" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" />
+            <line x1="2" y1="18" x2="7" y2="18" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" />
+            <line x1="29" y1="18" x2="34" y2="18" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" />
+            <path
+              d="M18 9.5C18 9.5 12.5 16.2 12.5 20.2C12.5 23.2 15 25.7 18 25.7C21 25.7 23.5 23.2 23.5 20.2C23.5 16.2 18 9.5 18 9.5Z"
+              fill="#00B4D8"
+            />
+            <path
+              d="M16 21.5C15.2 20.8 15 19.6 15.5 18.5"
+              stroke="#ffffff"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div className="flex items-center gap-1.5">
+          <span className={`font-extrabold tracking-tight text-lg sm:text-xl leading-none ${darkText ? 'text-[#0B192C]' : 'text-white'}`}>
+            TACTICAL<span className="text-[#00B4D8]">POOL</span>
+          </span>
+          <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-[#00B4D8]/20 text-[#00B4D8] border border-[#00B4D8]/30">
+            CLOUD
+          </span>
+        </div>
+        <p className={`text-[11px] font-medium tracking-wide mt-0.5 ${darkText ? 'text-slate-600' : 'text-cyan-200/80'}`}>
+          {BRAND_INFO.slogan} • {BRAND_INFO.phoneDisplay}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENTE: LIENZO TÁCTIL DE FIRMA DIGITAL ---
+const SignaturePad = ({ onSaveSignature }) => {
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [hasStrokes, setHasStrokes] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resizeCanvas = () => {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = 150;
+      const ctx = canvas.getContext('2d');
+      ctx.lineWidth = 2.6;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#0B192C';
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
+
+  const getCoords = (e) => {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  };
+
+  const startDrawing = (e) => {
+    if (e.cancelable) e.preventDefault();
+    const { x, y } = getCoords(e);
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    setIsDrawing(true);
+    setHasStrokes(true);
+  };
+
+  const draw = (e) => {
+    if (!isDrawing) return;
+    if (e.cancelable) e.preventDefault();
+    const { x, y } = getCoords(e);
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    onSaveSignature(canvasRef.current.toDataURL('image/png'));
+  };
+
+  const stopDrawing = () => {
+    if (!isDrawing) return;
+    setIsDrawing(false);
+    if (canvasRef.current && hasStrokes) {
+      onSaveSignature(canvasRef.current.toDataURL('image/png'));
+    }
+  };
+
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setHasStrokes(false);
+    onSaveSignature('');
+  };
+
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between">
+        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+          <PenTool className="w-3.5 h-3.5 text-[#00B4D8]" />
+          Dibuja tu firma táctil aquí
+        </label>
+        <button
+          type="button"
+          onClick={clearCanvas}
+          className="text-xs font-bold text-slate-500 hover:text-red-600 flex items-center gap-1"
+        >
+          <RotateCcw className="w-3 h-3" /> Limpiar firma
+        </button>
+      </div>
+      <div className="relative w-full h-[150px] bg-white border-2 border-dashed border-slate-300 rounded-xl overflow-hidden touch-none">
+        {!hasStrokes && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-xs text-slate-400 font-medium">
+            Firma con tu dedo o puntero en este recuadro
+          </div>
+        )}
+        <canvas
+          ref={canvasRef}
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={stopDrawing}
+          onMouseLeave={stopDrawing}
+          onTouchStart={startDrawing}
+          onTouchMove={draw}
+          onTouchEnd={stopDrawing}
+          className="w-full h-full cursor-crosshair block"
+        />
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENTE PRINCIPAL ---
+export default function App() {
+  // Detectar parámetros de URL (?orden=ID) para abrir directamente el Portal Cliente
+  const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+  const initialOrdenParam = urlParams?.get('orden');
+
+  // Autenticación y sincronización Firebase
+  const [user, setUser] = useState(null);
+  const [cloudStatus, setCloudStatus] = useState('connecting'); // 'connecting' | 'online' | 'offline'
+  const [clients, setClients] = useState(INITIAL_ORDERS);
+  const [selectedClientId, setSelectedClientId] = useState(initialOrdenParam || INITIAL_ORDERS[0].id);
+
+  // Navegación UI
+  const [viewMode, setViewMode] = useState(initialOrdenParam ? 'client' : 'tech'); // 'tech' | 'client'
+  const [activeTab, setActiveTab] = useState('operacion'); // 'operacion' | 'quimica' | 'fotos'
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('Todos');
+
+  // Modales y notificaciones
+  const [toast, setToast] = useState(null);
+  const [showNewClientModal, setShowNewClientModal] = useState(false);
+  const [showWhatsappModal, setShowWhatsappModal] = useState(null);
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [lightboxPhoto, setLightboxPhoto] = useState(null);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+
+  // Formulario nueva orden
+  const [newClientForm, setNewClientForm] = useState({
+    name: '',
+    address: '',
+    phone: '569',
+    poolType: 'Hormigón • 40.000 L',
+    technician: 'Ángel',
+    scheduledTime: '14:00',
+    notes: ''
+  });
+
+  // Formulario conformidad cliente
+  const [approvalName, setApprovalName] = useState('');
+  const [approvalComment, setApprovalComment] = useState('');
+  const [signatureDataUrl, setSignatureDataUrl] = useState('');
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => {
+      setToast((prev) => (prev?.message === message ? null : prev));
+    }, 4000);
+  };
+
+  // --- PASO 1: INICIALIZAR AUTENTICACIÓN FIREBASE ---
+  useEffect(() => {
+    if (!auth) {
+      setCloudStatus('offline');
+      return;
+    }
+
+    const initAuth = async () => {
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+      } catch (error) {
+        console.error('Error en autenticación Firebase:', error);
+        setCloudStatus('offline');
+      }
+    };
+
+    initAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        setCloudStatus('online');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // --- PASO 2: ESCUCHAR ÓRDENES EN TIEMPO REAL DESDE FIRESTORE ---
+  useEffect(() => {
+    if (!user || !db) return;
+
+    const ordersRef = collection(db, 'artifacts', appId, 'public', 'data', 'tacticalpool_orders');
+
+    const unsubscribe = onSnapshot(
+      ordersRef,
+      async (snapshot) => {
+        setCloudStatus('online');
+        if (snapshot.empty
